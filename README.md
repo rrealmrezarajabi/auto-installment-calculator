@@ -20,6 +20,25 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Tests
+
+Run the test suite once:
+
+```bash
+npm test
+```
+
+Run tests automatically while editing:
+
+```bash
+npm run test:watch
+```
+
+Route Handler tests run in Node.js using Vitest. They call the real handlers
+without mocking NextResponse or the sample data, and check HTTP status, JSON
+content type, vehicle IDs and prices, and the documented financing policy.
+They do not start an HTTP server or test Next.js routing and caching.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
