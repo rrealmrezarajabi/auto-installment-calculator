@@ -1,8 +1,5 @@
-export interface Vehicle {
-  readonly id: string;
-  readonly name: string;
-  /** Fictional price in whole tomans. */
-  readonly price: number;
-}
+import type { z } from "zod";
+import type { vehicleSchema, vehiclesResponseSchema } from "./vehicle-schema";
 
-export type VehiclesResponse = readonly Vehicle[];
+export type Vehicle = z.infer<typeof vehicleSchema>;
+export type VehiclesResponse = z.infer<typeof vehiclesResponseSchema>;

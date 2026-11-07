@@ -1,9 +1,5 @@
-export interface FinancingOptions {
-  /** Annual percentage, e.g. 24 means 24%, not 0.24. */
-  readonly annualInterestRate: number;
-  readonly allowedMonths: readonly number[];
-  /** IRT denotes toman throughout this application. */
-  readonly currency: "IRT";
-}
+import type { z } from "zod";
+import type { financingOptionsSchema } from "./financing-options-schema";
 
+export type FinancingOptions = z.infer<typeof financingOptionsSchema>;
 export type FinancingOptionsResponse = FinancingOptions;

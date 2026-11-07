@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { GET } from "./route";
+import { GET } from "../route";
 
 describe("GET /api/financing-options", () => {
   it("returns a successful JSON response", () => {

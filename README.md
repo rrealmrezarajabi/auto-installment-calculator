@@ -22,6 +22,8 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Tests
 
+Tests live in a `__tests__` folder within the section they cover.
+
 Run the test suite once:
 
 ```bash
@@ -38,6 +40,10 @@ Route Handler tests run in Node.js using Vitest. They call the real handlers
 without mocking NextResponse or the sample data, and check HTTP status, JSON
 content type, vehicle IDs and prices, and the documented financing policy.
 They do not start an HTTP server or test Next.js routing and caching.
+
+API client tests also cover Zod validation, HTTP and JSON errors, cancellation
+error propagation, and request signals. Query tests exercise independent caches,
+fresh-data reuse, transient retries, and failures that must not be retried.
 
 ## Learn More
 
