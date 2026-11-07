@@ -9,7 +9,7 @@ export function AmortizationTable({ result }: { result: CalculationResult | null
   const hasRows = calculation !== null && calculation.schedule.length > 0;
 
   return (
-    <section aria-labelledby="amortization-title" className="mt-8 min-w-0 overflow-hidden rounded-3xl border bg-card shadow-xl shadow-black/10">
+    <section aria-labelledby="amortization-title" className="min-w-0 overflow-hidden rounded-3xl border bg-card shadow-xl shadow-black/10">
       <div className="space-y-2 border-b p-6 sm:p-8">
         <h2 id="amortization-title" className="flex items-center gap-2 text-lg font-semibold">
           <ListOrdered size={20} className="text-primary" aria-hidden="true" />

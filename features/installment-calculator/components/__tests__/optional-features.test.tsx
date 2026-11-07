@@ -40,6 +40,7 @@ describe("optional calculator features", () => {
   it("compares the same loan at two durations and applies a scenario to the main table", async () => {
     const user = userEvent.setup();
     render(<CalculatorForm vehicles={vehicles} options={options} />);
+    await user.click(screen.getByRole("button", { name: "مقایسه سناریوها" }));
     const first = screen.getByRole("article", { name: "سناریوی ۱" });
     const second = screen.getByRole("article", { name: "سناریوی ۲" });
     const expected = calculateInstallments({ vehiclePrice: 1_000_000, downPayment: 300_000, annualInterestRate: 24, months: 36 });
@@ -47,9 +48,10 @@ describe("optional calculator features", () => {
     expect(within(first).getByLabelText<HTMLSelectElement>("سناریوی ۱").value).toBe("24");
     expect(within(second).getByText(`${formatNumber(expected.data.totalInterest)} تومان`)).toBeTruthy();
     await user.click(within(second).getByRole("button", { name: "اعمال در محاسبه" }));
+    expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(38);
+    await user.click(screen.getByRole("button", { name: "محاسبه" }));
     expect(screen.getByLabelText<HTMLSelectElement>("مدت بازپرداخت").value).toBe("36");
     expect(screen.getByTestId("monthly-payment").textContent).toBe(formatNumber(expected.data.monthlyPayment));
-    expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(38);
   });
 
   it("copies a snapshot that restores the same numbers after API prices and rates change", async () => {
@@ -57,7 +59,9 @@ describe("optional calculator features", () => {
     const writeText = vi.spyOn(navigator.clipboard, "writeText").mockResolvedValue(undefined);
     const firstRender = render(<CalculatorForm vehicles={vehicles} options={options} />);
     const originalPayment = screen.getByTestId("monthly-payment").textContent;
+    await user.click(screen.getByRole("button", { name: "مقایسه سناریوها" }));
     await user.selectOptions(screen.getByRole("combobox", { name: "سناریوی ۱" }), "48");
+    await user.click(screen.getByRole("button", { name: "محاسبه" }));
     await user.click(screen.getByRole("button", { name: "کپی لینک محاسبه" }));
     await waitFor(() => expect(writeText).toHaveBeenCalledTimes(1));
     location.search = new URL(writeText.mock.calls[0][0]).search;
@@ -67,8 +71,9 @@ describe("optional calculator features", () => {
       options={{ ...options, annualInterestRate: 0 }} />);
     expect(screen.getByLabelText<HTMLInputElement>("قیمت خودرو").value).toBe("۱٬۰۰۰٬۰۰۰");
     expect(screen.getByText("۲۴٪")).toBeTruthy();
-    expect(screen.getByRole<HTMLSelectElement>("combobox", { name: "سناریوی ۱" }).value).toBe("48");
     expect(screen.getByTestId("monthly-payment").textContent).toBe(originalPayment);
+    await user.click(screen.getByRole("button", { name: "مقایسه سناریوها" }));
+    expect(screen.getByRole<HTMLSelectElement>("combobox", { name: "سناریوی ۱" }).value).toBe("48");
   });
 
   it("offers a current link when clipboard access fails and hides it after input changes", async () => {

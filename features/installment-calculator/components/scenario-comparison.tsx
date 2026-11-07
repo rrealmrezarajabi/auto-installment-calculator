@@ -12,14 +12,14 @@ interface ScenarioComparisonProps {
 }
 
 export function ScenarioComparison({ scenarios, allowedMonths, currentMonths, onChange, onApply }: ScenarioComparisonProps) {
-  if (allowedMonths.length < 2) return null;
+  if (allowedMonths.length < 2) return <p className="rounded-2xl border bg-card p-6 text-sm text-muted-foreground">برای مقایسه، حداقل دو مدت بازپرداخت لازم است.</p>;
   const first = scenarios[0].result;
   const second = scenarios[1].result;
   const interestDifference = first?.success && second?.success
     ? Math.abs(first.data.totalInterest - second.data.totalInterest) : null;
 
   return (
-    <section aria-labelledby="comparison-title" className="mt-8 rounded-3xl border bg-card p-6 sm:p-8">
+    <section aria-labelledby="comparison-title" className="rounded-3xl border bg-card p-6 sm:p-8">
       <h2 id="comparison-title" className="mb-6 flex items-center gap-2 text-lg font-semibold">
         <GitCompareArrows size={20} className="text-primary" aria-hidden="true" />مقایسه دو سناریو
       </h2>

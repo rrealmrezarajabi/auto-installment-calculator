@@ -16,19 +16,30 @@ describe("calculator form interactions", () => {
   it("updates table rows with the form and removes them for invalid or settled input", async () => {
     const user = userEvent.setup();
     render(<CalculatorForm vehicles={vehicles} options={options} />);
-    expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(14);
-    await user.selectOptions(screen.getByLabelText("مدت بازپرداخت"), "24");
-    await waitFor(() => expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(26));
-    const downPayment = screen.getByLabelText("پیش‌پرداخت");
-    await user.clear(downPayment);
     expect(screen.queryByRole("table")).toBeNull();
+    await user.selectOptions(screen.getByLabelText("مدت بازپرداخت"), "24");
+    const downPayment = screen.getByLabelText<HTMLInputElement>("پیش‌پرداخت");
+    await user.clear(downPayment);
     await user.type(downPayment, "400");
     expect(screen.getByTestId("monthly-payment").textContent).toBe("۲۵");
+
+    await user.click(screen.getByRole("button", { name: "جدول اقساط" }));
+    expect(screen.queryByRole("form")).toBeNull();
+    expect(screen.getByRole("button", { name: "جدول اقساط" }).getAttribute("aria-pressed")).toBe("true");
+    expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(26);
     const totals = within(screen.getByRole("table")).getByRole("row", { name: /جمع کل/ });
     expect(within(totals).getAllByRole("cell").map((cell) => cell.textContent))
       .toEqual(["۶۰۰", "۶۰۰", "۰", "۰"]);
+
+    await user.click(screen.getByRole("button", { name: "ویرایش اطلاعات" }));
+    expect(downPayment.value).toBe("۴۰۰");
     await user.clear(downPayment);
+    await user.click(screen.getByRole("button", { name: "جدول اقساط" }));
+    expect(screen.queryByRole("table")).toBeNull();
+
+    await user.click(screen.getByRole("button", { name: "محاسبه" }));
     await user.type(downPayment, "1000");
+    await user.click(screen.getByRole("button", { name: "جدول اقساط" }));
     expect(screen.queryByRole("table")).toBeNull();
     expect(screen.getByText("تسویه کامل؛ بدون اقساط")).toBeTruthy();
   });
