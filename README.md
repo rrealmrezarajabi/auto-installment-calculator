@@ -45,6 +45,11 @@ API client tests also cover Zod validation, HTTP and JSON errors, cancellation
 error propagation, and request signals. Query tests exercise independent caches,
 fresh-data reuse, transient retries, and failures that must not be retried.
 
+Calculation tests live in `features/installment-calculator/lib/__tests__`.
+They cover a manually calculated loan, zero interest, final-payment rounding,
+full down payment, invalid inputs, safe-integer limits, and consistency between
+schedule rows and totals. The rounding policy is documented in `DECISIONS.md`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
