@@ -7,6 +7,7 @@ import type { FinancingOptions } from "../model/financing-options-types";
 import { FinancingFields } from "./financing-fields";
 import { PaymentSummary } from "./payment-summary";
 import { VehicleFields } from "./vehicle-fields";
+import { AmortizationTable } from "./amortization-table";
 
 interface CalculatorFormProps {
   vehicles: VehiclesResponse;
@@ -27,6 +28,7 @@ export function CalculatorForm({ vehicles, options }: CalculatorFormProps) {
         </form>
         <PaymentSummary result={result} vehicleName={vehicleName} months={months} />
       </div>
+      <AmortizationTable result={result} />
     </FormProvider>
   );
 }

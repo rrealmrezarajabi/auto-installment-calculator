@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it } from "vitest";
 import { CalculatorForm } from "../calculator-form";
@@ -13,6 +13,25 @@ const options = { annualInterestRate: 0, allowedMonths: [12, 24], currency: "IRT
 afterEach(cleanup);
 
 describe("calculator form interactions", () => {
+  it("updates table rows with the form and removes them for invalid or settled input", async () => {
+    const user = userEvent.setup();
+    render(<CalculatorForm vehicles={vehicles} options={options} />);
+    expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(14);
+    await user.selectOptions(screen.getByLabelText("مدت بازپرداخت"), "24");
+    await waitFor(() => expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(26));
+    const downPayment = screen.getByLabelText("پیش‌پرداخت");
+    await user.clear(downPayment);
+    expect(screen.queryByRole("table")).toBeNull();
+    await user.type(downPayment, "400");
+    const totals = within(screen.getByRole("table")).getByRole("row", { name: /جمع کل/ });
+    expect(within(totals).getAllByRole("cell").map((cell) => cell.textContent))
+      .toEqual(["۶۰۰", "۶۰۰", "۰", "۰"]);
+    await user.clear(downPayment);
+    await user.type(downPayment, "1000");
+    expect(screen.queryByRole("table")).toBeNull();
+    expect(screen.getByText("قیمت خودرو کامل پرداخت شده است؛ قسطی برای نمایش وجود ندارد.")).toBeTruthy();
+  });
+
   it("formats Latin digits while typing and preserves middle editing and separator deletion", async () => {
     const user = userEvent.setup();
     render(<CalculatorForm vehicles={[]} options={options} />);
