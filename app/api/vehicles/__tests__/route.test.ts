@@ -3,15 +3,11 @@ import { describe, expect, it } from "vitest";
 import { GET } from "../route";
 
 describe("GET /api/vehicles", () => {
-  it("returns a successful JSON response", () => {
+  it("returns selectable vehicles with unique IDs and positive whole-toman prices", async () => {
     const response = GET();
-
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toContain("application/json");
-  });
-
-  it("returns selectable vehicles with unique IDs and positive whole-toman prices", async () => {
-    const body: unknown = await GET().json();
+    const body: unknown = await response.json();
 
     expect(Array.isArray(body)).toBe(true);
     if (!Array.isArray(body)) {

@@ -10,10 +10,9 @@ import { FieldFrame } from "./field-frame";
 interface CurrencyFieldProps {
   name: "customPrice" | "downPayment";
   label: string;
-  hint?: string;
 }
 
-export function CurrencyField({ name, label, hint }: CurrencyFieldProps) {
+export function CurrencyField({ name, label }: CurrencyFieldProps) {
   const { control } = useFormContext<CalculatorFormValues>();
   const { field, fieldState } = useController({ control, name });
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -27,12 +26,11 @@ export function CurrencyField({ name, label, hint }: CurrencyFieldProps) {
   });
 
   return (
-    <FieldFrame id={name} label={label} error={fieldState.error?.message}
-      hint={`${hint ? `${hint}؛ ` : ""}تومانِ بدون اعشار؛ «٬» جداکنندهٔ هزارگان است.`}>
+    <FieldFrame id={name} label={label} error={fieldState.error?.message}>
       <div className="relative">
         <Input {...field} id={name} inputMode="numeric" autoComplete="off" dir="ltr"
           ref={(element) => { inputRef.current = element; field.ref(element); }}
-          className="h-12 rounded-xl bg-white pe-3 ps-16 text-right tabular-nums"
+          className="h-12 rounded-xl bg-background/60 pe-3 ps-16 text-right tabular-nums"
           aria-invalid={fieldState.invalid} aria-describedby={`${name}-message`}
           onChange={(event) => {
             const input = event.currentTarget;

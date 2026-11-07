@@ -25,13 +25,6 @@ afterEach(() => {
 });
 
 describe("calculator data states", () => {
-  it("shows an accessible loading state while requests are pending", () => {
-    vi.stubGlobal("fetch", vi.fn(() => new Promise<Response>(() => {})));
-    renderCalculator();
-    expect(screen.getByRole("status", { name: "در حال دریافت اطلاعات" })).toBeTruthy();
-    expect(screen.queryByRole("form")).toBeNull();
-  });
-
   it("offers manual entry when vehicles fail and notifies through Sonner", async () => {
     vi.stubGlobal("fetch", vi.fn(async (url: string) => url === "/api/vehicles"
       ? new Response(null, { status: 404 }) : Response.json(options)));

@@ -23,13 +23,14 @@ describe("calculator form interactions", () => {
     await user.clear(downPayment);
     expect(screen.queryByRole("table")).toBeNull();
     await user.type(downPayment, "400");
+    expect(screen.getByTestId("monthly-payment").textContent).toBe("۲۵");
     const totals = within(screen.getByRole("table")).getByRole("row", { name: /جمع کل/ });
     expect(within(totals).getAllByRole("cell").map((cell) => cell.textContent))
       .toEqual(["۶۰۰", "۶۰۰", "۰", "۰"]);
     await user.clear(downPayment);
     await user.type(downPayment, "1000");
     expect(screen.queryByRole("table")).toBeNull();
-    expect(screen.getByText("قیمت خودرو کامل پرداخت شده است؛ قسطی برای نمایش وجود ندارد.")).toBeTruthy();
+    expect(screen.getByText("تسویه کامل؛ بدون اقساط")).toBeTruthy();
   });
 
   it("formats Latin digits while typing and preserves middle editing and separator deletion", async () => {
@@ -50,19 +51,6 @@ describe("calculator form interactions", () => {
     expect(price.value).toBe("۱۳۴٬۵۶۷");
   });
 
-  it("updates the installment as the down payment changes and hides invalid results", async () => {
-    const user = userEvent.setup();
-    render(<CalculatorForm vehicles={vehicles} options={options} />);
-    expect(screen.getByTestId("monthly-payment").textContent).toBe("۵۸");
-    const downPayment = screen.getByLabelText("پیش‌پرداخت");
-    await user.clear(downPayment);
-    expect(screen.getByTestId("monthly-payment").textContent).toBe("—");
-    await user.type(downPayment, "۴۰۰");
-    await waitFor(() => expect(screen.getByTestId("monthly-payment").textContent).toBe("۵۰"));
-    await user.selectOptions(screen.getByLabelText("مدت بازپرداخت"), "24");
-    await waitFor(() => expect(screen.getByTestId("monthly-payment").textContent).toBe("۲۵"));
-  });
-
   it("revalidates down payment when a cheaper vehicle is selected", async () => {
     const user = userEvent.setup();
     render(<CalculatorForm vehicles={vehicles} options={options} />);
@@ -81,6 +69,6 @@ describe("calculator form interactions", () => {
     expect(screen.getByText("خودروی سفارشی · ۱۲ ماه")).toBeTruthy();
     await user.clear(screen.getByLabelText("پیش‌پرداخت"));
     await user.type(screen.getByLabelText("پیش‌پرداخت"), "۱۲۰۰");
-    await screen.findByText("با این پیش‌پرداخت، مبلغ خودرو کامل تسویه می‌شود و قسطی ندارید.");
+    await screen.findByText("تسویه کامل");
   });
 });

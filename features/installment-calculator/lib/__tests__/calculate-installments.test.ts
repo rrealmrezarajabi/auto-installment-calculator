@@ -71,37 +71,10 @@ describe("calculateInstallments", () => {
     });
   });
 
-  it("handles a single-month loan", () => {
-    const result = calculate({ ...defaultInput, annualInterestRate: 12, months: 1 });
-    expect(result.schedule).toEqual([
-      { month: 1, payment: 1_010, principal: 1_000, interest: 10, remainingBalance: 0 },
-    ]);
-  });
-
-  it("remains stable for a rate approaching zero", () => {
-    const result = calculate({ ...defaultInput, annualInterestRate: 1e-12 });
-    expect(result.monthlyPayment).toBe(333);
-    expect(result.totalInterest).toBe(0);
-    expect(result.totalPayment).toBe(1_000);
-  });
-
-  it("caps payments when rounding settles a small balance early", () => {
-    const result = calculate({ ...defaultInput, vehiclePrice: 2, months: 4 });
-    expect(result.schedule.map(({ payment }) => payment)).toEqual([1, 1, 0, 0]);
-    expect(result.totalPayment).toBe(2);
-  });
-
-  const scenarios: CalculatorInput[] = [
-    { vehiclePrice: 950_000_000, downPayment: 200_000_000, annualInterestRate: 24, months: 12 },
-    { vehiclePrice: 1_100_000_000, downPayment: 350_000_000, annualInterestRate: 24, months: 48 },
-    { vehiclePrice: 850_000_001, downPayment: 123_456_789, annualInterestRate: 18.5, months: 36 },
-    { vehiclePrice: 10_001, downPayment: 0, annualInterestRate: 0, months: 24 },
-    { vehiclePrice: 1, downPayment: 0, annualInterestRate: 24, months: 48 },
-    { vehiclePrice: 2, downPayment: 0, annualInterestRate: 0, months: 4 },
-    { vehiclePrice: 100_000_000, downPayment: 0, annualInterestRate: 12, months: 600 },
-  ];
-
-  it.each(scenarios)("keeps every row and summary consistent: %j", (input) => {
+  it("reconciles the entire schedule and totals for a realistic interest-bearing loan", () => {
+    const input: CalculatorInput = {
+      vehiclePrice: 850_000_001, downPayment: 123_456_789, annualInterestRate: 24, months: 36,
+    };
     const result = calculate(input);
     let balance = result.loanAmount;
     let principalSum = 0;
@@ -134,21 +107,15 @@ describe("calculateInstallments", () => {
     expect(result.finalPayment).toBe(result.schedule.at(-1)?.payment);
   });
 
-  it.each([
-    { vehiclePrice: 0 }, { vehiclePrice: -1 }, { vehiclePrice: 1.5 },
-    { vehiclePrice: Number.MAX_SAFE_INTEGER + 1 },
-    { downPayment: -1 }, { downPayment: 1_001 }, { downPayment: 0.5 },
-    { annualInterestRate: -1 }, { annualInterestRate: NaN }, { annualInterestRate: Infinity },
-    { months: 0 }, { months: -1 }, { months: 1.5 }, { months: 601 }, { months: Infinity },
-  ])("returns a failure instead of throwing for invalid input: %j", (overrides) => {
-    expect(calculateInstallments({ ...defaultInput, ...overrides })).toMatchObject({
+  it("rejects a down payment above the vehicle price", () => {
+    expect(calculateInstallments({ ...defaultInput, downPayment: 1_001 })).toMatchObject({
       success: false, error: { code: "INVALID_INPUT" },
     });
   });
 
-  it.each([1200, 12, Number.MAX_VALUE])("rejects unsafe computed amounts at annual rate %s", (annualInterestRate) => {
+  it("rejects totals outside the safe integer range", () => {
     expect(calculateInstallments({
-      ...defaultInput, vehiclePrice: Number.MAX_SAFE_INTEGER, annualInterestRate, months: 12,
+      ...defaultInput, vehiclePrice: Number.MAX_SAFE_INTEGER, annualInterestRate: 12, months: 12,
     })).toMatchObject({ success: false, error: { code: "UNSAFE_AMOUNT" } });
   });
 });

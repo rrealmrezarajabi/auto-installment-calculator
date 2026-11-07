@@ -18,7 +18,7 @@ function CatalogVehicleField({ vehicles }: { vehicles: VehiclesResponse }) {
   return (
     <FieldFrame id="vehicleId" label="خودرو" error={errors.vehicleId?.message}
       hint={selected ? `قیمت خودرو: ${formatNumber(selected.price)} تومان` : "فهرست خودروها خالی است؛ از ورود دستی استفاده کنید."}>
-      <NativeSelect {...register("vehicleId")} id="vehicleId" className="h-12 w-full rounded-xl bg-white"
+      <NativeSelect {...register("vehicleId")} id="vehicleId" className="h-12 w-full rounded-xl bg-background/60"
         aria-invalid={!!errors.vehicleId} aria-describedby="vehicleId-message">
         <NativeSelectOption value="">انتخاب خودرو</NativeSelectOption>
         {vehicles.map((vehicle) => <NativeSelectOption key={vehicle.id} value={vehicle.id}>{vehicle.name}</NativeSelectOption>)}
@@ -33,7 +33,7 @@ function ManualVehicleFields() {
     <div className="grid gap-3 sm:grid-cols-2">
       <FieldFrame id="customName" label="نام خودرو" error={errors.customName?.message}>
         <Input {...register("customName")} id="customName" placeholder="مثلاً تارا اتوماتیک"
-          className="h-12 rounded-xl bg-white" aria-invalid={!!errors.customName} aria-describedby="customName-message" />
+          className="h-12 rounded-xl bg-background/60" aria-invalid={!!errors.customName} aria-describedby="customName-message" />
       </FieldFrame>
       <CurrencyField name="customPrice" label="قیمت خودرو" />
     </div>
@@ -46,12 +46,12 @@ export function VehicleFields({ vehicles }: { vehicles: VehiclesResponse }) {
 
   return (
     <fieldset className="space-y-5">
-      <legend className="mb-4 text-sm font-semibold">۱. انتخاب خودرو</legend>
-      {vehicles.length === 0 && <p className="text-xs leading-6 text-muted-foreground">خودرویی در فهرست موجود نیست؛ نام و قیمت خودرو را دستی وارد کنید.</p>}
+      <legend className="mb-4 text-sm font-semibold">انتخاب خودرو</legend>
+      {vehicles.length === 0 && <p className="text-xs leading-6 text-muted-foreground">فهرست خودروها خالی است.</p>}
       <div className="grid grid-cols-2 gap-1 rounded-xl bg-muted p-1" role="group" aria-label="روش انتخاب خودرو">
         {([['catalog', 'انتخاب از فهرست'], ['manual', 'ورود دستی']] as const).map(([value, label]) => (
           <Button key={value} type="button" variant="ghost" aria-pressed={mode === value}
-            className={`h-11 rounded-lg ${mode === value ? "bg-white text-foreground shadow-sm hover:bg-white" : "text-muted-foreground"}`}
+            className={`h-11 rounded-lg ${mode === value ? "bg-primary/15 text-primary shadow-sm hover:bg-primary/20" : "text-muted-foreground"}`}
             onClick={() => setValue("mode", value, { shouldValidate: true })}>{label}</Button>
         ))}
       </div>

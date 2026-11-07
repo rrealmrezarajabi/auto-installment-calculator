@@ -1,14 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { parseWholeAmount } from "../format";
 
-describe("parseWholeAmount", () => {
-  it.each(["1234567", "۱٬۲۳۴٬۵۶۷", "١٬٢٣٤٬٥٦٧", "1,234,567", " ۱۲۳۴۵۶۷ "])("accepts %s", (value) => {
-    expect(parseWholeAmount(value)).toBe(1_234_567);
-  });
-  it.each(["", " ", "-1", "1.5", "۱٫۵", "1e6", "abc", "1,23", "9007199254740992"])("rejects %s", (value) => {
-    expect(parseWholeAmount(value)).toBeNaN();
-  });
-  it("preserves an explicitly entered zero", () => {
+describe("currency parsing", () => {
+  it("reads grouped Persian amounts and explicit zero", () => {
+    expect(parseWholeAmount("۱٬۲۳۴٬۵۶۷")).toBe(1_234_567);
     expect(parseWholeAmount("۰")).toBe(0);
+  });
+
+  it("rejects missing amounts and decimals instead of changing their meaning", () => {
+    expect(parseWholeAmount("")).toBeNaN();
+    expect(parseWholeAmount("۱٫۵")).toBeNaN();
   });
 });

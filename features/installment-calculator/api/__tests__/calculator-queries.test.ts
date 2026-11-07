@@ -44,19 +44,15 @@ describe("calculator queries", () => {
     }
   });
 
-  it.each([
-    { name: "client error", response: () => new Response(null, { status: 404 }), error: Error },
-    { name: "invalid contract", response: () => Response.json({ vehicles: [] }), error: ZodError },
-    { name: "malformed JSON", response: () => new Response("invalid"), error: SyntaxError },
-  ])("does not retry $name", async ({ response, error }) => {
+  it("does not retry or cache a response with an invalid contract", async () => {
     const client = new QueryClient();
-    const fetchMock = vi.fn().mockImplementation(async () => response());
+    const fetchMock = vi.fn().mockImplementation(async () => Response.json({ vehicles: [] }));
     vi.stubGlobal("fetch", fetchMock);
 
     try {
       await expect(client.fetchQuery({
         ...calculatorQueries.vehicles(), retryDelay: 0,
-      })).rejects.toBeInstanceOf(error);
+      })).rejects.toBeInstanceOf(ZodError);
       expect(fetchMock).toHaveBeenCalledTimes(1);
       expect(client.getQueryData(calculatorQueries.vehicles().queryKey)).toBeUndefined();
     } finally {

@@ -14,7 +14,7 @@ export function FieldFrame({ id, label, error, hint, children }: FieldFrameProps
     <div className="space-y-2">
       <Label htmlFor={id} className="text-sm font-medium">{label}</Label>
       {children}
-      <p id={`${id}-message`} className={`min-h-5 text-xs leading-5 ${error ? "text-destructive" : "text-muted-foreground"}`}>
+      <p id={`${id}-message`} className={error || hint ? `text-xs leading-5 ${error ? "text-destructive" : "text-muted-foreground"}` : "hidden"}>
         {error ?? hint}
       </p>
     </div>

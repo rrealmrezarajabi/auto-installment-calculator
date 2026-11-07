@@ -12,7 +12,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="fa"
       dir="rtl"
-      className="h-full antialiased"
+      className="dark h-full antialiased"
     >
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>

@@ -5,25 +5,28 @@
 @import "@fontsource/vazirmatn/600.css";
 @import "@fontsource/vazirmatn/700.css";
 
+@custom-variant dark (&:is(.dark *));
+
 :root {
-  --background: #f5f6f8;
-  --foreground: #182631;
-  --card: #ffffff;
-  --card-foreground: #182631;
-  --popover: #ffffff;
-  --popover-foreground: #182631;
-  --primary: #176654;
-  --primary-foreground: #ffffff;
-  --secondary: #eaf3ef;
-  --secondary-foreground: #176654;
-  --muted: #f1f4f5;
-  --muted-foreground: #64747e;
-  --accent: #eaf3ef;
-  --accent-foreground: #176654;
-  --destructive: #bd303c;
-  --border: #dfe6e8;
-  --input: #d8e1e4;
-  --ring: #27856d;
+  color-scheme: dark;
+  --background: #0b0e13;
+  --foreground: #e9edf3;
+  --card: #131820;
+  --card-foreground: #e9edf3;
+  --popover: #131820;
+  --popover-foreground: #e9edf3;
+  --primary: #b4ec89;
+  --primary-foreground: #14210c;
+  --secondary: #1c2b21;
+  --secondary-foreground: #bee9a4;
+  --muted: #1a212b;
+  --muted-foreground: #96a2b2;
+  --accent: #1c2b21;
+  --accent-foreground: #d2f6b9;
+  --destructive: #ff8993;
+  --border: #28313e;
+  --input: #303b49;
+  --ring: #b4ec89;
   --radius: 0.75rem;
 }
 
@@ -55,8 +58,12 @@
 
 @layer base {
   * { @apply border-border; }
-  body { @apply bg-background text-foreground font-sans; }
+  body {
+    @apply bg-background text-foreground font-sans;
+    background-image: radial-gradient(ellipse at 85% 0%, #1b2b224a, transparent 45%);
+    background-attachment: fixed;
+  }
   button, input, select { font: inherit; }
   button, select { touch-action: manipulation; }
-  ::selection { background: #c8e7da; }
+  ::selection { background: #b4ec8933; }
 }

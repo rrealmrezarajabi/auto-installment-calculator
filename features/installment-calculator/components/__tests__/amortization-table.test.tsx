@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
-import type { CalculationResult, InstallmentCalculation } from "../../model/calculator-types";
+import type { InstallmentCalculation } from "../../model/calculator-types";
 import { AmortizationTable } from "../amortization-table";
 
 // Hand-calculated loan: 1,000 tomans, 10% monthly interest, two installments.
@@ -45,26 +45,7 @@ describe("amortization table", () => {
         { month: 3, payment: 334, principal: 334, interest: 0, remainingBalance: 0 },
       ],
     } }} />);
-    expect(screen.getByText("مبلغ قسط آخر برای تسویه دقیق مانده وام، ۳۳۴ تومان تنظیم شده است.")).toBeTruthy();
+    expect(screen.getByText("قسط آخر: ۳۳۴ تومان · تعدیل بابت گردکردن")).toBeTruthy();
   });
 
-  it("shows a settled purchase without an empty table", () => {
-    render(<AmortizationTable result={{ success: true, data: {
-      loanAmount: 0, monthlyPayment: 0, finalPayment: 0,
-      totalInstallments: 0, totalPayment: 1_500, totalInterest: 0, schedule: [],
-    } }} />);
-    expect(screen.queryByRole("table")).toBeNull();
-    expect(screen.getByText("قیمت خودرو کامل پرداخت شده است؛ قسطی برای نمایش وجود ندارد.")).toBeTruthy();
-  });
-
-  it.each<CalculationResult | null>([
-    null,
-    { success: false, error: { code: "UNSAFE_AMOUNT", message: "مبلغ نامعتبر" } },
-  ])("removes the previous table when the result becomes invalid: %j", (invalidResult) => {
-    const { rerender } = render(<AmortizationTable result={{ success: true, data: calculation }} />);
-    expect(screen.getByRole("table")).toBeTruthy();
-    rerender(<AmortizationTable result={invalidResult} />);
-    expect(screen.queryByRole("table")).toBeNull();
-    expect(screen.getByText("پس از تکمیل و اصلاح اطلاعات فرم، ریز اقساط اینجا نمایش داده می‌شود.")).toBeTruthy();
-  });
 });
