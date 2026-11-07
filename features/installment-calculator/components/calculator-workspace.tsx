@@ -22,15 +22,12 @@ export function CalculatorWorkspace({ view, onViewChange, children }: Calculator
   }, [view]);
 
   return (
-    <div className="grid items-start gap-5 md:grid-cols-[12rem_minmax(0,1fr)] lg:gap-7">
+    <div className="grid items-start gap-5 md:grid-cols-[13rem_minmax(0,1fr)] lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-6">
       <CalculatorNavigation view={view} onSelect={onViewChange} />
       <div className="min-w-0">
-        <div className="mb-5 flex min-h-10 items-center justify-between gap-3">
-          <h2 ref={titleRef} tabIndex={-1} className="text-lg font-semibold outline-none sm:text-xl">
-            {calculatorViews.find(({ id }) => id === view)?.label}
-          </h2>
-          <span className="flex items-center gap-2 text-xs text-muted-foreground"><span className="size-1.5 rounded-full bg-primary" />محاسبه آنی</span>
-        </div>
+        <h2 ref={titleRef} tabIndex={-1} className="sr-only">
+          {calculatorViews.find(({ id }) => id === view)?.label}
+        </h2>
         {children}
       </div>
     </div>

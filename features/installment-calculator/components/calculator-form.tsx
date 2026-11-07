@@ -32,7 +32,7 @@ export function CalculatorForm({ vehicles, options, shared }: CalculatorFormProp
     <FormProvider {...form}>
       <CalculatorWorkspace view={view} onViewChange={setView}>
         <div id="panel-calculator" role="region" aria-labelledby="nav-calculator" hidden={view !== "calculator"}>
-          <div className="grid items-start gap-5 xl:grid-cols-[1.1fr_1fr]">
+          <div className="grid items-stretch gap-5 xl:grid-cols-[1.1fr_1fr]">
             <PurchaseForm vehicles={vehicles} options={options} />
             <PaymentSummary result={result} vehicleName={vehicleName} months={months} shareCalculation={shareCalculation} />
           </div>

@@ -15,8 +15,8 @@ interface CalculatorNavigationProps {
 
 export function CalculatorNavigation({ view, onSelect }: CalculatorNavigationProps) {
   return (
-    <aside className="self-start rounded-2xl border bg-card/70 p-2 md:sticky md:top-6 md:rounded-3xl md:p-4">
-      <div className="mb-5 hidden items-center gap-2 border-b px-2 pb-5 pt-2 text-sm font-semibold md:flex">
+    <aside className="self-start rounded-2xl border bg-card p-2 shadow-xl shadow-black/10 md:sticky md:top-6 md:rounded-3xl md:p-5">
+      <div className="mb-5 hidden min-h-12 items-center gap-2 border-b px-2 pb-5 text-sm font-semibold md:flex">
         <PanelsTopLeft size={18} className="text-primary" aria-hidden="true" />پنل محاسبات
       </div>
       <nav aria-label="بخش‌های ماشین‌حساب" className="grid grid-cols-3 gap-1 md:grid-cols-1 md:gap-2">

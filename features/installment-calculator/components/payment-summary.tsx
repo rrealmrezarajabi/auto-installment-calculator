@@ -26,7 +26,7 @@ function SummaryRow({ label, amount }: { label: string; amount: number }) {
 export function PaymentSummary({ result, vehicleName, months, shareCalculation }: PaymentSummaryProps) {
   const data = result?.success ? result.data : null;
   return (
-    <section aria-labelledby="summary-title" className="overflow-hidden rounded-3xl border border-primary/20 bg-card shadow-xl shadow-black/10 lg:sticky lg:top-8">
+    <section aria-labelledby="summary-title" className="h-full overflow-hidden rounded-3xl border border-primary/20 bg-card shadow-xl shadow-black/10">
       <div className="border-b border-primary/10 bg-linear-to-bl from-primary/10 to-transparent p-6 sm:p-8">
         <div className="mb-8 flex items-center justify-between gap-3">
           <h2 id="summary-title" className="flex items-center gap-2 text-sm font-medium text-primary">
