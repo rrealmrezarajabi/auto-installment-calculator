@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { InstallmentCalculator } from "../installment-calculator";
 
 vi.mock("sonner", () => ({ toast: { error: vi.fn(), dismiss: vi.fn() } }));
+vi.mock("next/navigation", () => ({ useSearchParams: () => new URLSearchParams() }));
 
 const clients: QueryClient[] = [];
 const options = { annualInterestRate: 24, allowedMonths: [12, 24], currency: "IRT" };

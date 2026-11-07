@@ -21,6 +21,7 @@ export function createCalculatorFormSchema(vehicles: VehiclesResponse, options: 
     if (values.mode === "catalog" && !vehicle) issue("vehicleId", "یک خودرو انتخاب کنید یا از ورود دستی استفاده کنید.");
     if (values.mode === "manual") {
       if (!values.customName.trim()) issue("customName", "نام خودرو را وارد کنید.");
+      else if (values.customName.trim().length > 120) issue("customName", "نام خودرو حداکثر ۱۲۰ نویسه باشد.");
       if (!Number.isFinite(price) || !price || price <= 0) issue("customPrice", "قیمت را به تومان و به صورت عدد صحیح مثبت وارد کنید.");
     }
     if (!Number.isFinite(downPayment)) issue("downPayment", "پیش‌پرداخت را به صورت عدد صحیح صفر یا بیشتر وارد کنید.");

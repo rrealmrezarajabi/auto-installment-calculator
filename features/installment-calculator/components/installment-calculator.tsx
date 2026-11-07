@@ -1,7 +1,8 @@
 "use client";
 
 import { useCalculatorData } from "../hooks/use-calculator-data";
-import { CalculatorForm } from "./calculator-form";
+import { Suspense } from "react";
+import { CalculatorFromUrl } from "./calculator-from-url";
 import { CalculatorLoading } from "./calculator-loading";
 import { DataNotice } from "./data-notice";
 
@@ -21,7 +22,9 @@ export function InstallmentCalculator() {
         retry={() => { void financing.refetch(); }} pending={financing.isFetching} />}
       {vehicles.isError && <DataNotice message="فهرست خودروها دریافت نشد. می‌توانید از ورود دستی استفاده کنید."
         retry={() => { void vehicles.refetch(); }} pending={vehicles.isFetching} />}
-      <CalculatorForm vehicles={vehicles.data ?? []} options={financing.data} />
+      <Suspense fallback={<CalculatorLoading />}>
+        <CalculatorFromUrl vehicles={vehicles.data ?? []} options={financing.data} />
+      </Suspense>
     </>
   );
 }

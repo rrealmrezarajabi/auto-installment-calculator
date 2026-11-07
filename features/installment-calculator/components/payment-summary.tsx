@@ -1,11 +1,15 @@
 import { ArrowUpLeft, Wallet } from "lucide-react";
 import { formatNumber } from "@/lib/format";
 import type { CalculationResult } from "../model/calculator-types";
+import type { SharedCalculation } from "../model/shared-calculation-types";
+import { PrincipalInterestChart } from "./principal-interest-chart";
+import { ShareCalculationButton } from "./share-calculation-button";
 
 interface PaymentSummaryProps {
   result: CalculationResult | null;
   vehicleName: string;
   months: number | null;
+  shareCalculation: SharedCalculation | null;
 }
 
 function SummaryRow({ label, amount }: { label: string; amount: number }) {
@@ -19,7 +23,7 @@ function SummaryRow({ label, amount }: { label: string; amount: number }) {
   );
 }
 
-export function PaymentSummary({ result, vehicleName, months }: PaymentSummaryProps) {
+export function PaymentSummary({ result, vehicleName, months, shareCalculation }: PaymentSummaryProps) {
   const data = result?.success ? result.data : null;
   return (
     <section aria-labelledby="summary-title" className="overflow-hidden rounded-3xl border border-primary/20 bg-card shadow-xl shadow-black/10 lg:sticky lg:top-8">
@@ -47,9 +51,11 @@ export function PaymentSummary({ result, vehicleName, months }: PaymentSummaryPr
             <SummaryRow label="کل پرداخت با پیش‌پرداخت" amount={data.totalPayment} />
           </dl>
           {data.loanAmount === 0 && <p className="border-t py-4 text-sm text-primary">تسویه کامل</p>}
+          <PrincipalInterestChart calculation={data} />
         </> : <p role="status" className="py-5 text-sm text-muted-foreground">
           {result && !result.success ? result.error.message : "اطلاعات خرید را تکمیل کنید."}
         </p>}
+        <ShareCalculationButton calculation={shareCalculation} />
       </div>
     </section>
   );

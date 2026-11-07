@@ -8,14 +8,22 @@ import { FinancingFields } from "./financing-fields";
 import { PaymentSummary } from "./payment-summary";
 import { VehicleFields } from "./vehicle-fields";
 import { AmortizationTable } from "./amortization-table";
+import { ScenarioComparison } from "./scenario-comparison";
+import { useScenarioComparison } from "../hooks/use-scenario-comparison";
+import type { SharedCalculation } from "../model/shared-calculation-types";
 
 interface CalculatorFormProps {
   vehicles: VehiclesResponse;
   options: FinancingOptions;
+  shared?: SharedCalculation;
 }
 
-export function CalculatorForm({ vehicles, options }: CalculatorFormProps) {
-  const { form, result, vehicleName, months } = useCalculatorForm(vehicles, options);
+export function CalculatorForm({ vehicles, options, shared }: CalculatorFormProps) {
+  const { form, result, input, vehicleName, months } = useCalculatorForm(vehicles, options, shared);
+  const { scenarios, comparisonMonths, changeMonth } = useScenarioComparison(input, options.allowedMonths, shared?.comparisonMonths);
+  const shareCalculation: SharedCalculation | null = input ? {
+    version: 1, vehicleName, input, comparisonMonths: [...comparisonMonths],
+  } : null;
   return (
     <FormProvider {...form}>
       <div className="grid items-start gap-6 lg:grid-cols-[1.2fr_1fr] lg:gap-8">
@@ -25,8 +33,10 @@ export function CalculatorForm({ vehicles, options }: CalculatorFormProps) {
           <VehicleFields vehicles={vehicles} />
           <FinancingFields options={options} />
         </form>
-        <PaymentSummary result={result} vehicleName={vehicleName} months={months} />
+        <PaymentSummary result={result} vehicleName={vehicleName} months={months} shareCalculation={shareCalculation} />
       </div>
+      <ScenarioComparison scenarios={scenarios} allowedMonths={options.allowedMonths} currentMonths={months}
+        onChange={changeMonth} onApply={(duration) => form.setValue("months", String(duration), { shouldValidate: true })} />
       <AmortizationTable result={result} />
     </FormProvider>
   );
