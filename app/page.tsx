@@ -1,7 +1,11 @@
 import { CarFront } from "lucide-react";
+import { vehiclePriceReference } from "@/server/data/vehicles";
 import { InstallmentCalculator } from "@/features/installment-calculator/components/installment-calculator";
 
 export default function Home() {
+  const priceDate = new Intl.DateTimeFormat("fa-IR", {
+    dateStyle: "long", timeZone: "Asia/Tehran",
+  }).format(new Date(`${vehiclePriceReference.capturedAt}T12:00:00Z`));
   return (
     <div className="min-h-screen">
       <header className="border-b border-white/5 bg-card/50">
@@ -18,7 +22,10 @@ export default function Home() {
           <h1 className="text-2xl font-bold leading-relaxed tracking-tight sm:text-3xl">ماشین‌حساب <span className="text-primary">اقساط خودرو</span></h1>
         </div>
         <InstallmentCalculator />
-        <footer className="mt-8 text-center text-xs text-muted-foreground">قیمت‌ها و شرایط فروش نمونه‌اند.</footer>
+        <footer className="mt-8 text-center text-xs leading-6 text-muted-foreground">
+          قیمت‌های نمونه بازار · برداشت {priceDate} از <a href={vehiclePriceReference.sourceUrl}
+            target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-primary">car.ir</a> · شرایط فروش نمونه‌اند.
+        </footer>
       </main>
     </div>
   );

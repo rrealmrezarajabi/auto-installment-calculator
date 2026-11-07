@@ -1,6 +1,6 @@
 import { Calculator, GitCompareArrows, ListOrdered, PanelsTopLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { CalculatorView } from "../model/calculator-view-types";
+import type { CalculatorView } from "../types/calculator-view-types";
 
 export const calculatorViews = [
   { id: "calculator", label: "محاسبه", icon: Calculator },

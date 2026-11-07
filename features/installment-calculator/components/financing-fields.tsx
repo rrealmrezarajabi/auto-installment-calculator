@@ -3,8 +3,8 @@
 import { useFormContext } from "react-hook-form";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { formatNumber } from "@/lib/format";
-import type { CalculatorFormValues } from "../model/calculator-form-schema";
-import type { FinancingOptions } from "../model/financing-options-types";
+import type { CalculatorFormValues } from "../types/calculator-form-types";
+import type { FinancingOptions } from "../types/financing-options-types";
 import { CurrencyField } from "./currency-field";
 import { FieldFrame } from "./field-frame";
 

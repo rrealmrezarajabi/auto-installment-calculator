@@ -1,4 +1,4 @@
-import type { FinancingOptions } from "@/features/installment-calculator/model/financing-options-types";
+import type { FinancingOptions } from "@/features/installment-calculator/types/financing-options-types";
 
 export const financingOptions = {
   annualInterestRate: 24,

@@ -5,7 +5,7 @@ import { Share2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { SharedCalculation } from "../model/shared-calculation-types";
+import type { SharedCalculation } from "../types/shared-calculation-types";
 import { createCalculationUrl } from "../lib/share-calculation";
 
 export function ShareCalculationButton({ calculation }: { calculation: SharedCalculation | null }) {

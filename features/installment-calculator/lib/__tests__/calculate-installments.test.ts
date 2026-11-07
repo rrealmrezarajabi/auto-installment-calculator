@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import type { CalculatorInput, InstallmentCalculation } from "../../model/calculator-types";
+import type { CalculatorInput, InstallmentCalculation } from "../../types/calculator-types";
 import { calculateInstallments } from "../calculate-installments";
 
 const defaultInput: CalculatorInput = {

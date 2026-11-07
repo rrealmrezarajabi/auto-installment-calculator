@@ -1,7 +1,7 @@
 import type { z } from "zod";
 
-import { financingOptionsSchema } from "../model/financing-options-schema";
-import { vehiclesResponseSchema } from "../model/vehicle-schema";
+import { financingOptionsSchema } from "../schemas/financing-options-schema";
+import { vehiclesResponseSchema } from "../schemas/vehicle-schema";
 
 export class HttpError extends Error {
   constructor(public readonly status: number) {

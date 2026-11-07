@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { formatNumber } from "@/lib/format";
-import type { CalculatorFormValues } from "../model/calculator-form-schema";
-import type { VehiclesResponse } from "../model/vehicle-types";
+import type { CalculatorFormValues } from "../types/calculator-form-types";
+import type { VehiclesResponse } from "../types/vehicle-types";
 import { CurrencyField } from "./currency-field";
 import { FieldFrame } from "./field-frame";
 

@@ -3,14 +3,14 @@
 import { FormProvider } from "react-hook-form";
 import { useState } from "react";
 import { useCalculatorForm } from "../hooks/use-calculator-form";
-import type { VehiclesResponse } from "../model/vehicle-types";
-import type { FinancingOptions } from "../model/financing-options-types";
+import type { VehiclesResponse } from "../types/vehicle-types";
+import type { FinancingOptions } from "../types/financing-options-types";
 import { PaymentSummary } from "./payment-summary";
 import { AmortizationTable } from "./amortization-table";
 import { ScenarioComparison } from "./scenario-comparison";
 import { useScenarioComparison } from "../hooks/use-scenario-comparison";
-import type { SharedCalculation } from "../model/shared-calculation-types";
-import type { CalculatorView } from "../model/calculator-view-types";
+import type { SharedCalculation } from "../types/shared-calculation-types";
+import type { CalculatorView } from "../types/calculator-view-types";
 import { CalculatorWorkspace } from "./calculator-workspace";
 import { PurchaseContext } from "./purchase-context";
 import { PurchaseForm } from "./purchase-form";

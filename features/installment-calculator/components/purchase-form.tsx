@@ -1,5 +1,5 @@
-import type { VehiclesResponse } from "../model/vehicle-types";
-import type { FinancingOptions } from "../model/financing-options-types";
+import type { VehiclesResponse } from "../types/vehicle-types";
+import type { FinancingOptions } from "../types/financing-options-types";
 import { FinancingFields } from "./financing-fields";
 import { VehicleFields } from "./vehicle-fields";
 

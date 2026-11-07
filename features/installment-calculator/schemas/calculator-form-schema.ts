@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { parseWholeAmount } from "@/lib/format";
-import type { VehiclesResponse } from "./vehicle-types";
-import type { FinancingOptions } from "./financing-options-types";
+import type { VehiclesResponse } from "../types/vehicle-types";
+import type { FinancingOptions } from "../types/financing-options-types";
 
 export function createCalculatorFormSchema(vehicles: VehiclesResponse, options: FinancingOptions) {
   return z.object({
@@ -40,6 +40,3 @@ export function createCalculatorFormSchema(vehicles: VehiclesResponse, options: 
     };
   });
 }
-
-export type CalculatorFormValues = z.input<ReturnType<typeof createCalculatorFormSchema>>;
-export type CalculatorFormOutput = z.output<ReturnType<typeof createCalculatorFormSchema>>;

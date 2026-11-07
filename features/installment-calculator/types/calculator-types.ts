@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import type { calculatorInputSchema } from "./calculator-schema";
+import type { calculatorInputSchema } from "../schemas/calculator-schema";
 
 /** Monetary values are whole tomans; interest rate is an annual percentage. */
 export type CalculatorInput = z.infer<typeof calculatorInputSchema>;

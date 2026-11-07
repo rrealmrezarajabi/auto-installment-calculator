@@ -5,10 +5,11 @@ import { useEffect, useMemo } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { formatNumber } from "@/lib/format";
 import { calculateInstallments } from "../lib/calculate-installments";
-import { createCalculatorFormSchema, type CalculatorFormOutput, type CalculatorFormValues } from "../model/calculator-form-schema";
-import type { VehiclesResponse } from "../model/vehicle-types";
-import type { FinancingOptions } from "../model/financing-options-types";
-import type { SharedCalculation } from "../model/shared-calculation-types";
+import { createCalculatorFormSchema } from "../schemas/calculator-form-schema";
+import type { CalculatorFormOutput, CalculatorFormValues } from "../types/calculator-form-types";
+import type { VehiclesResponse } from "../types/vehicle-types";
+import type { FinancingOptions } from "../types/financing-options-types";
+import type { SharedCalculation } from "../types/shared-calculation-types";
 
 export function useCalculatorForm(vehicles: VehiclesResponse, options: FinancingOptions, shared?: SharedCalculation) {
   const schema = useMemo(() => createCalculatorFormSchema(vehicles, options), [vehicles, options]);

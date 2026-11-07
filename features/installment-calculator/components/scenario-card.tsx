@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { Label } from "@/components/ui/label";
 import { formatNumber } from "@/lib/format";
-import type { CalculationResult } from "../model/calculator-types";
+import type { CalculationResult } from "../types/calculator-types";
 
 interface ScenarioCardProps {
   index: number;

@@ -1,5 +1,5 @@
-import { sharedCalculationSchema } from "../model/shared-calculation-schema";
-import type { SharedCalculation } from "../model/shared-calculation-types";
+import { sharedCalculationSchema } from "../schemas/shared-calculation-schema";
+import type { SharedCalculation } from "../types/shared-calculation-types";
 import { calculateInstallments } from "./calculate-installments";
 
 export function readSharedCalculation(raw: string | null): SharedCalculation | null {

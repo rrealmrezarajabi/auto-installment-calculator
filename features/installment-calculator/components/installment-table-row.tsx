@@ -1,5 +1,5 @@
 import { formatNumber } from "@/lib/format";
-import type { InstallmentRow } from "../model/calculator-types";
+import type { InstallmentRow } from "../types/calculator-types";
 
 interface InstallmentTableRowProps {
   installment: InstallmentRow;

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
-import type { InstallmentCalculation } from "../../model/calculator-types";
+import type { InstallmentCalculation } from "../../types/calculator-types";
 import { AmortizationTable } from "../amortization-table";
 
 // Hand-calculated loan: 1,000 tomans, 10% monthly interest, two installments.

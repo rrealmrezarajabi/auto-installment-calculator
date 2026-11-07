@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
-import type { CalculatorView } from "../model/calculator-view-types";
+import type { CalculatorView } from "../types/calculator-view-types";
 import { calculatorViews, CalculatorNavigation } from "./calculator-navigation";
 
 interface CalculatorWorkspaceProps {

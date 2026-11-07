@@ -1,6 +1,6 @@
 import { ListOrdered } from "lucide-react";
 import { formatNumber } from "@/lib/format";
-import type { CalculationResult } from "../model/calculator-types";
+import type { CalculationResult } from "../types/calculator-types";
 import { InstallmentTableRow } from "./installment-table-row";
 import { InstallmentTableTotals } from "./installment-table-totals";
 

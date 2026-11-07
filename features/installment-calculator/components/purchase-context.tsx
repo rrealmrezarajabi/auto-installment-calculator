@@ -1,7 +1,7 @@
 import { Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatNumber } from "@/lib/format";
-import type { CalculatorInput } from "../model/calculator-types";
+import type { CalculatorInput } from "../types/calculator-types";
 
 interface PurchaseContextProps {
   input: CalculatorInput | null;

@@ -1,9 +1,9 @@
-import { calculatorInputSchema } from "../model/calculator-schema";
+import { calculatorInputSchema } from "../schemas/calculator-schema";
 import type {
   CalculationResult,
   CalculatorInput,
   InstallmentRow,
-} from "../model/calculator-types";
+} from "../types/calculator-types";
 
 const unsafeAmount: CalculationResult = {
   success: false,

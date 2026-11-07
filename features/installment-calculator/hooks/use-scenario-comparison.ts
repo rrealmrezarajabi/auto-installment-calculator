@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { CalculatorInput } from "../model/calculator-types";
+import type { CalculatorInput } from "../types/calculator-types";
 import { calculateInstallments } from "../lib/calculate-installments";
 
 export function useScenarioComparison(

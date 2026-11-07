@@ -1,7 +1,7 @@
 import { ArrowUpLeft, Wallet } from "lucide-react";
 import { formatNumber } from "@/lib/format";
-import type { CalculationResult } from "../model/calculator-types";
-import type { SharedCalculation } from "../model/shared-calculation-types";
+import type { CalculationResult } from "../types/calculator-types";
+import type { SharedCalculation } from "../types/shared-calculation-types";
 import { PrincipalInterestChart } from "./principal-interest-chart";
 import { ShareCalculationButton } from "./share-calculation-button";
 

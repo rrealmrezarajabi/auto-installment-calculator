@@ -2,8 +2,8 @@
 
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import type { VehiclesResponse } from "../model/vehicle-types";
-import type { FinancingOptions } from "../model/financing-options-types";
+import type { VehiclesResponse } from "../types/vehicle-types";
+import type { FinancingOptions } from "../types/financing-options-types";
 import { readSharedCalculation } from "../lib/share-calculation";
 import { CalculatorForm } from "./calculator-form";
 

@@ -1,5 +1,5 @@
 import { formatNumber } from "@/lib/format";
-import type { InstallmentCalculation } from "../model/calculator-types";
+import type { InstallmentCalculation } from "../types/calculator-types";
 
 export function PrincipalInterestChart({ calculation }: { calculation: InstallmentCalculation }) {
   const { loanAmount, totalInterest, totalInstallments } = calculation;

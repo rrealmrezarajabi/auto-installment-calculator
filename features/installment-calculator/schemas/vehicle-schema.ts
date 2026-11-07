@@ -3,7 +3,7 @@ import { z } from "zod";
 export const vehicleSchema = z.object({
   id: z.string().trim().min(1),
   name: z.string().trim().min(1),
-  /** Fictional price in whole tomans. */
+  /** Sample price in whole tomans. */
   price: z.number().int().positive(),
 }).readonly();
 

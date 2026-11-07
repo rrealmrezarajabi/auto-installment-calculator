@@ -4,7 +4,7 @@ import { useController, useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { useLayoutEffect, useRef } from "react";
 import { formatCurrencyInput } from "../lib/format-currency-input";
-import type { CalculatorFormValues } from "../model/calculator-form-schema";
+import type { CalculatorFormValues } from "../types/calculator-form-types";
 import { FieldFrame } from "./field-frame";
 
 interface CurrencyFieldProps {
