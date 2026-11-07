@@ -1,66 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ماشین‌حساب اقساط خودرو
 
-## Getting Started
+پروژه تمرینی با Next.js، React و TypeScript؛ داده‌های خودرو و شرایط فروش ساختگی‌اند.
 
-First, run the development server:
+## اجرا
+
+با Node.js 24 و npm:
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+صفحه در `http://localhost:3000` در دسترس است.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Tests
-
-Tests live in a `__tests__` folder within the section they cover.
-
-Run the test suite once:
+## بررسی و تست
 
 ```bash
 npm test
-```
-
-Run tests automatically while editing:
-
-```bash
 npm run test:watch
+npm run lint
 ```
 
-Route Handler tests run in Node.js using Vitest. They call the real handlers
-without mocking NextResponse or the sample data, and check HTTP status, JSON
-content type, vehicle IDs and prices, and the documented financing policy.
-They do not start an HTTP server or test Next.js routing and caching.
+تست‌های هر بخش در پوشه `__tests__` همان بخش قرار دارند. تست‌ها شامل قرارداد روت‌ها، اعتبارسنجی پاسخ API، کش و retry، محاسبات و گردکردن، تبدیل اعداد فارسی و تعاملات فرم هستند. تست‌های فرم در jsdom اجرا می‌شوند؛ جایگزین بازبینی بصری مرورگر نیستند.
 
-API client tests also cover Zod validation, HTTP and JSON errors, cancellation
-error propagation, and request signals. Query tests exercise independent caches,
-fresh-data reuse, transient retries, and failures that must not be retried.
+## وضعیت فعلی
 
-Calculation tests live in `features/installment-calculator/lib/__tests__`.
-They cover a manually calculated loan, zero interest, final-payment rounding,
-full down payment, invalid inputs, safe-integer limits, and consistency between
-schedule rows and totals. The rounding policy is documented in `DECISIONS.md`.
+- دریافت خودروها از `GET /api/vehicles` و شرایط فروش از `GET /api/financing-options`.
+- فرم فارسی و RTL با shadcn/ui، React Hook Form و Zod؛ انتخاب خودرو یا ورود دستی، پیش‌پرداخت و مدت اقساط.
+- نمایش آنی قسط، مبلغ وام، مجموع سود و مجموع پرداختی؛ اعلان خطای API با Sonner و امکان تلاش مجدد.
+- هسته مستقل محاسبه و جدول اقساط با اصلاح گردکردن در قسط آخر.
+- نمایش جدول اقساط هنوز پیاده نشده است. نمودار، مقایسه سناریوها و لینک اشتراک نیز فعلاً اضافه نشده‌اند.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+فرض‌ها و سیاست گردکردن در `DECISIONS.md` ثبت شده‌اند.
