@@ -13,6 +13,24 @@ const options = { annualInterestRate: 0, allowedMonths: [12, 24], currency: "IRT
 afterEach(cleanup);
 
 describe("calculator form interactions", () => {
+  it("formats Latin digits while typing and preserves middle editing and separator deletion", async () => {
+    const user = userEvent.setup();
+    render(<CalculatorForm vehicles={[]} options={options} />);
+    const price = screen.getByLabelText<HTMLInputElement>("قیمت خودرو");
+    await user.type(price, "1234567");
+    expect(price.value).toBe("۱٬۲۳۴٬۵۶۷");
+    price.setSelectionRange(3, 3);
+    await user.keyboard("9");
+    expect(price.value).toBe("۱۲٬۹۳۴٬۵۶۷");
+    expect(price.selectionStart).toBe(4);
+    price.setSelectionRange(3, 3);
+    await user.keyboard("{Backspace}");
+    expect(price.value).toBe("۱٬۹۳۴٬۵۶۷");
+    price.setSelectionRange(1, 1);
+    await user.keyboard("{Delete}");
+    expect(price.value).toBe("۱۳۴٬۵۶۷");
+  });
+
   it("updates the installment as the down payment changes and hides invalid results", async () => {
     const user = userEvent.setup();
     render(<CalculatorForm vehicles={vehicles} options={options} />);
